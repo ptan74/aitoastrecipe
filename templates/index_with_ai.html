@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Recipe Generator</title>
+
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='ladychef.png') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        h1, p {
+            color: #ffffff;
+        }
+
+        #recipe_image {
+            max-width: 100%;
+            height: auto;
+            display: none;
+        }
+    </style>
+
+    <script>
+        function showRecipeImage() {
+            var recipeCategory = document.getElementById("recipe_category").value;
+            var image = document.getElementById("recipe_image");
+            var ingredientsTextArea = document.getElementById("ingredients");
+
+            var imageSources = {
+                "Creamed eggs on toast": "creamedeggontoast.jpg",
+                "Eggs in the basket": "Eggs-in-a-Basket-IG.jpg",
+                "French toast": "frenchtoast.jpg",
+                "Shrimp toast": "kc-shrimp-toast.jpg",
+                "Soldiers": "Soldiers.jpg",
+                "Tongue toast": "tonguetoast.jpg",
+                "Soft boiled eggs": "kaya-toast-featured-image.jpg"
+            };
+
+            // Update the image
+            if (imageSources.hasOwnProperty(recipeCategory)) {
+                var imagePath = imageSources[recipeCategory];
+                image.src = "{{ url_for('static', filename='', _external=True) }}" + imagePath;
+                image.style.display = "block";
+            } else {
+                image.style.display = "none";
+            }
+
+            // Update the textarea
+            var recipeIngredients = {
+                "Creamed eggs on toast": "12 hard-cooked eggs, peeled, 1/4 cup butter, 1/2 cup all-purpose flour, 3 cups milk, 1 tablespoon chicken bouillon granules, 6 slices white bread, lightly toasted, salt and white pepper to taste",
+                "Eggs in the basket": "cooking spray, 3 large potatoes, peeled and grated, 1/4 cup butter, melted, kosher salt and ground black pepper to taste, 6 eggs, 3/4 cup shredded provolone cheese, 6 slices prosciutto, 2 teaspoons maple syrup",
+                "French toast": "2/3 cup milk, 2 large eggs, 1 teaspoon vanilla extract (Optional), 1/4 teaspoon ground cinnamon (Optional), salt to taste, 6 thick slices bread, 1 tablespoon unsalted butter, or more as needed",
+                "Shrimp toast": "1/2 pound medium shrimp, peeled and deveined, 1 slice fresh ginger root, chopped, 1 clove garlic, chopped, 1/2 cup water chestnuts, drained and chopped, 1 teaspoon salt, 1 teaspoon ground black pepper, 2 tablespoons dry sherry, 1 egg white, 1 teaspoon baking soda, 3 slices white bread, crusts trimmed, 3 tablespoons sesame seeds, 3 cups oil for deep frying",
+                "Soldiers": "4 large eggs, salt and ground black pepper to taste, 4 slices bread, 4 teaspoons unsalted butter",
+                "Tongue toast": "3 pounds beef tongue, whole, 1 tablespoon salt, 1 onion, chopped, 1 (1 pound) loaf rye bread, 1 cup coarse grained prepared mustard, 1 onion, thinly sliced",
+                "Soft boiled eggs": "2 large eggs"
+            };
+
+            ingredientsTextArea.value = recipeIngredients[recipeCategory] || "";
+        }
+    </script>
+</head>
+<body>
+    <h1>AI Recipe Generator</h1>
+    <form action="/generate_recipe" method="post">
+        <label style="color: white; font-weight: bold;" for="recipe_category">Recipe Category:</label>
+        <select id="recipe_category" name="recipe_category" onchange="showRecipeImage()" required>
+            <option value="Creamed eggs on toast">Creamed eggs on toast</option>
+            <option value="Eggs in the basket">Eggs in the basket</option>
+            <option value="French toast">French Toast</option>
+            <option value="Shrimp toast">Shrimp toast</option>
+            <option value="Soldiers">Soldiers</option>
+            <option value="Tongue toast">Tongue toast</option>
+            <option value="Soft boiled eggs">Soft boiled eggs</option>
+        </select>
+        <p></p>
+        <br>
+        <label style="color: white; font-weight: bold;" for="ingredients">Ingredients:</label>
+        <br>
+        <textarea id="ingredients" name="ingredients" rows="5" cols="30"></textarea>
+        <br>
+        <p></p>
+        <img id="recipe_image" alt="Recipe Image">
+        <p></p>
+        <button style="background-color: cadetblue" type="submit">Generate Recipe</button>
+    </form>
+</body>
+</html>

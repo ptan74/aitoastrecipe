@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Recipe</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+        <!-- Use url_for to generate the correct URL for the static file -->
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='impressed-young-pretty-cook-chef.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        h1, p {
+            color: black; font-weight: bold;";
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Generated Recipe</h1>
+    <p>{{ generated_recipe }}</p>
+
+
+</body>
+</html>

@@ -1,3 +1,8 @@
+# A simple nutrition calculator using the CalorieNinjas API
+# Author: Patrick Tan
+# contact: patrick.patricktan@gmail.com
+
+
 import tkinter as tk
 from tkinter import scrolledtext, messagebox
 import requests
@@ -5,7 +10,7 @@ import requests
 def calculate_nutrition():
     query = query_text.get("1.0", "end-1c")
     api_url = 'https://api.calorieninjas.com/v1/nutrition?query=' + query
-    response = requests.get(api_url, headers={'X-Api-Key': 'gQlyWbOFQznDust79eds6A==o4bwQEWQLE8XMrP1'})
+    response = requests.get(api_url, headers={'X-Api-Key': 'replace with your own key from https://calorieninjas.com/api'})
 
     if response.status_code == requests.codes.ok:
         nutrition_data = response.json()["items"]

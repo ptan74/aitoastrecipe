@@ -1,3 +1,8 @@
+#Author: Patrick Tan
+#contact: patrick.patricktan@gmail.com
+#This will generate a recipe for the selected category and ingredients using GPT-2 model
+
+
 from flask import Flask, render_template, request
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 import textwrap
